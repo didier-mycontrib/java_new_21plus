@@ -1,0 +1,20 @@
+* Virtual_Thread (threads légers, pas natifs pour optimiser les performances)
+(preview 19,20) , 21_LTS: finalized +
+
+* "structured concurrency" (incubator 19,20, preview 21) 
+   + scoped-values (incubator 20,preview 21)
+
+* pattern matching (for switch) : preview 17,18,19,20,  21_LTS: finalized
+
+* record pattern (destructuration de "record" en petites parties complémentaires)
+  preview en 19,20 , 21_LTS: finalized
+   
+* Vector-Api (toujours en preview en java21) : operations mathématiques sur tableaux entiers de valeurs numériques
+  optimisation néamoins fortement restreinte ou pas selon le type de micro-processeur 
+ 
+ * foreign function and memory API (toujours en preview en java19,20 et 21): 
+  nouvelle api (se voulant "safe" , "mieux que JNI" )
+  pour invoquer des fonctions externes à la JVM et partager des blocs mémoires avec d'autres processus .  
+  
+ * Diverses améliorations/optimisations (UTF8 par défaut , deprecated finalize now as warning  , ...)
+ 
