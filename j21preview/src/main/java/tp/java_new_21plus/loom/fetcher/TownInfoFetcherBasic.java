@@ -1,8 +1,8 @@
-package tp.java_new_21plus.loom.structured_concurrency;
+package tp.java_new_21plus.loom.fetcher;
 
 import java.util.List;
 
-import tp.java_new_21plus.loom.structured_concurrency.data.TownWithWeather;
+import tp.java_new_21plus.data.TownWithWeather;
 
 public class TownInfoFetcherBasic extends TownInfoFetcher{
 

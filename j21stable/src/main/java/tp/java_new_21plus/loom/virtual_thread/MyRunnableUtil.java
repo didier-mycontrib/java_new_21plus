@@ -8,7 +8,9 @@ public class MyRunnableUtil {
 	public static Runnable prepareBasicRunnable() {
 		return ()->{
 			MyThreadUtil.sleep(Duration.ofSeconds(1));
-			MyThreadUtil.log("basic task");
+			MyThreadUtil.log("basic task part1");
+			MyThreadUtil.sleep(Duration.ofSeconds(1));
+			MyThreadUtil.log("basic task part2");
 		};
 	}
 	

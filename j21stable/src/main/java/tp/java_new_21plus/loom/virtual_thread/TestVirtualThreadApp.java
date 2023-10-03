@@ -9,10 +9,10 @@ public class TestVirtualThreadApp {
 	
 
 	public static void testSimpleVirtualThread() throws Exception {
-		Thread vt1 = VirtualThreadUtil.createVirtualThread("vt1",
-				         MyRunnableUtil.prepareCoffeeRunnable());
+		Thread vt1 = Thread.ofVirtual().name("vt1")
+				         .unstarted(MyRunnableUtil.prepareCoffeeRunnable());
 		vt1.start();// démarrage de vt1
-		vt1.join();//attente de la fin de vt1 depuis mainThread
+		vt1.join();//attente de la fin de vt1 depuis main Thread
 	}
 	
 	public static void testViaExecutors() throws Exception {
@@ -50,8 +50,8 @@ public class TestVirtualThreadApp {
 	
 	public static void main(String[] args) throws Exception {
 		System.out.println("number of cores in processor=" + numberOfCores());
-		testSimpleVirtualThread();
-		testViaExecutors();
+		//testSimpleVirtualThread();
+		//testViaExecutors();
 		testToViewCarrierThreadPoolSize();
 	}
 

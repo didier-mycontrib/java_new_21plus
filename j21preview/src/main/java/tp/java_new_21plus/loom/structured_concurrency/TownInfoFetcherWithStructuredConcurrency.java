@@ -1,23 +1,51 @@
 package tp.java_new_21plus.loom.structured_concurrency;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.StructuredTaskScope;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeoutException;
 
-import tp.java_new_21plus.loom.structured_concurrency.data.TownWithWeather;
+import tp.java_new_21plus.data.TownWithWeather;
+import tp.java_new_21plus.loom.fetcher.TownInfoFetcher;
 
 public class TownInfoFetcherWithStructuredConcurrency extends TownInfoFetcher{
 
 	@Override
 	public List<TownWithWeather> fetchTowns() {
-		return fetchTownsWithStructuredConcurrency();
+		return fetchTownsWithStructuredConcurrencyAndVirtualThreads();//1456ms with structuredConcurrency and virtualThreads
+		//return fetchTownsWithStructuredConcurrencyAndParallelStream();//1732ms with structuredConcurrency and parallelStream
 	}
 	
-	public List<TownWithWeather> fetchTownsWithStructuredConcurrency() {
-    	//return buildZipList().stream()
-    			return buildZipList().parallelStream()
+	public List<TownWithWeather> fetchTownsWithStructuredConcurrencyAndVirtualThreads() {
+		List<String> zipList = buildZipList();
+		List<TownWithWeather> townList = new ArrayList<>();
+		ThreadFactory threadFactory = Thread.ofVirtual().name("fetcher-", 0).factory();
+		try (var executor = Executors.newThreadPerTaskExecutor(threadFactory)) {
+			 List<Future<TownWithWeather>> futureList = new ArrayList<>();
+	    	 for(String zip : zipList) {
+				Future<TownWithWeather> futureTownWithWeather = executor.submit(
+						()->{ TownWithWeather town = fetchTownWithNamePopulationAndCoordsFromZip(zip); 
+							  return fetchTownWithWeatherAndElevationFromTownWithCoords(town);
+						    }
+						);
+				futureList.add(futureTownWithWeather);
+	    	 }
+	    	 for(Future<TownWithWeather> futureTownWithWeather :futureList ) {
+				TownWithWeather town = futureTownWithWeather.get();
+				townList.add(town);
+		    }
+			}catch(Exception ex) {
+				System.out.println("exception: " + ex.getMessage());
+			}
+	     return townList;
+	}
+	
+	public List<TownWithWeather> fetchTownsWithStructuredConcurrencyAndParallelStream() {
+    	return buildZipList().parallelStream()
 	              .map( zip -> fetchTownWithNamePopulationAndCoordsFromZip(zip))
 	              .map( town -> fetchTownWithWeatherAndElevationFromTownWithCoords(town))
 	              .toList();

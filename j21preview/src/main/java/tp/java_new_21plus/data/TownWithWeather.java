@@ -1,4 +1,4 @@
-package tp.java_new_21plus.loom.structured_concurrency.data;
+package tp.java_new_21plus.data;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

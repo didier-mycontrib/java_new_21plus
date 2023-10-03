@@ -1,4 +1,4 @@
-package tp.java_new_21plus.loom.structured_concurrency;
+package tp.java_new_21plus.loom.fetcher;
 
 public class FakeLongTaskService {
 	public static FakeLongTaskService INSTANCE = new FakeLongTaskService();

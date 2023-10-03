@@ -4,9 +4,7 @@ import java.time.Instant;
 import java.util.concurrent.StructuredTaskScope;
 import java.util.concurrent.TimeoutException;
 
-//import jdk.incubator.concurrent.StructuredTaskScope;//incubator in jdk20
-//scope.fork(...) returning Future<Double> in java20_incubator
-//scope.fork(....) returning StructuredTaskScope.Subtask<Double> in java21_preview
+import tp.java_new_21plus.loom.fetcher.FakeLongTaskService;
 
 
 public class WithFirstFinishedSubTask {

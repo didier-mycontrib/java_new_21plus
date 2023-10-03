@@ -1,21 +1,17 @@
-package tp.java_new_21plus.loom.structured_concurrency;
+package tp.java_new_21plus.loom.fetcher;
 
-import java.util.Arrays;
 import java.util.List;
 
+import tp.java_new_21plus.data.TownWithWeather;
 import tp.java_new_21plus.dto.GeoApiGouvFr;
 import tp.java_new_21plus.dto.OpenElevation;
 import tp.java_new_21plus.dto.OpenWeatherMap;
 import tp.java_new_21plus.dto.Zippopotam;
 import tp.java_new_21plus.http2.MyHttp2Util;
-import tp.java_new_21plus.loom.structured_concurrency.data.TownWithWeather;
 
 public abstract class TownInfoFetcher {
 	
-	
-	public static List<String> buildZipList() {
-		return Arrays.asList("75001","33000","06000","69001","67000");
-	}
+
 	
     public TownWithWeather fetchTownNameAndPopulationFromZip(TownWithWeather townWithZip) {
     	TownWithWeather townWithNameAndPopulation = new TownWithWeather(townWithZip);
