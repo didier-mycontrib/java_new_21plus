@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tp</groupId>
+  <artifactId>withReactor</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  
+  <properties>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       <java.version>17</java.version> 
+      <maven.compiler.release>${java.version}</maven.compiler.release><!-- depuis java 9 --> 
+  </properties>
+  
+  <dependencies>
+  
+	  <dependency>
+	    <groupId>io.projectreactor</groupId>
+	    <artifactId>reactor-core</artifactId>
+	    <version>3.5.10</version>
+	</dependency>
+
+		  <dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.12.5</version> 
+		    <!--  NB: la version 2.12 permet de serialiser/deserialiser des records -->
+		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.30</version> <!--  version recente pour jdk recent -->
+		</dependency>
+  </dependencies>
+
+  
+  <build>
+    <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>${java.version}</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </pluginManagement>
+</build>
+  
+  
+</project>
