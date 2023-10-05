@@ -1,5 +1,7 @@
 package tp.withWebFlux.data;
 
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,10 +21,17 @@ public class News {
 	
 	private String text;
 	
+	private LocalDate date;
+	
 	public News(String id, String title,String text) {
+		this(id,title,text,LocalDate.now());
+	}
+	
+	public News(String id, String title,String text,LocalDate date) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.text = text;
+		this.date = date;
 	}
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 
 public class Dto {
-	public record NewsL0 (String id,String title,String text) {
+	public record NewsL0 (String id,String title,String text,String date) {
 		
 	}
 	
