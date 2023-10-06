@@ -1,0 +1,19 @@
+Selon le temps à disposition,
+* tester si possible webflux/r2dbc avec h2,mariadb et postgres (via profile)
+* tester plus en profondeur l'auto_incrementation (bigint et uuid?)
+* jointure (à tester avec Devise-Pays) ?
+* spring.r2dbc.initialization-mode=always ?
+* CompositeDatabasePopulator populator avec ConnectionFactoryInitializer ?
+
+
+===================
+
+* continuer à rédiger et approfondir:
+   * Reactor , reactor-test (StepVerifier, ...)
+   * WebFlux (@RestController et function handler)
+   * Transaction avec webflux ??? (avec mongo et r2dbc ?)
+   * Spring_security avec webflux ???
+   * Tests avec WebFlux (variantes)
+   
+* tester éventuel mixage "traditionnel en mode modif"  et "webflux en mode lecture"
+  dans meme application  
