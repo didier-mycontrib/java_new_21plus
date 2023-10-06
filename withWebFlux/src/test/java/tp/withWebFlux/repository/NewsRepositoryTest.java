@@ -3,22 +3,22 @@ package tp.withWebFlux.repository;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import reactor.test.StepVerifier;
-import tp.withWebFlux.WithWebFluxApplication;
 import tp.withWebFlux.data.News;
+@SpringBootTest(
+	properties = {
+		"de.flapdoodle.mongodb.embedded.databaseDir=./my_mongo_tmp_dir"
+	}
+)
 
-@DataMongoTest
-//@SpringBootTest
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes={WithWebFluxApplication.class}) //java config
+//@DataMongoTest
+//@ExtendWith(SpringExtension.class)
+//@ContextConfiguration(classes={WithWebFluxApplication.class}) //java config
 public class NewsRepositoryTest {
 	
 	private static Logger logger = LoggerFactory.getLogger(NewsRepositoryTest.class);
@@ -35,7 +35,7 @@ public class NewsRepositoryTest {
 		logger.debug("newsRepository="+newsRepository);
 		assertNotNull(newsRepository);
 		
-		News newsA = new News(null,"newsA" , "text of newsA");
+		News newsA = new News(null,"newsAa" , "text of newsAa");
 		StepVerifier.create(
 		     newsRepository.save(newsA)
 		     .doOnNext(n->logObjectValue(n))

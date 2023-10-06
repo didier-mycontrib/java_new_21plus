@@ -3,6 +3,8 @@
 */.settings/*
 **/.settings/*
 
+**/my_mongo_tmp_dir/*
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
