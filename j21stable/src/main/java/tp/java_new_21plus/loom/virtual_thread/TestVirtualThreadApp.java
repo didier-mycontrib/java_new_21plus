@@ -3,6 +3,7 @@ package tp.java_new_21plus.loom.virtual_thread;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class TestVirtualThreadApp {
@@ -34,6 +35,25 @@ public class TestVirtualThreadApp {
 		}
 	}
 	
+	
+	public static void testViaExecutorsAndWaitingForAll() throws Exception {
+		//one unamed virtualThread for each concurrent task submitted to the executor
+		try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+			executor.submit(MyRunnableUtil.prepareJokeRunnable());
+			for(int i=0;i<3;i++) {
+				executor.submit(MyRunnableUtil.prepareJokeRunnable());
+			}
+			executor.shutdown();//action différée lorsque tout sera fini
+			System.out.println("suite");
+			try {
+				  executor.awaitTermination(60, TimeUnit.SECONDS);  //temps d'attente maxi (timeout)
+				} catch (InterruptedException e) {
+				  System.err.println(e.getMessage());
+				}
+			System.out.println("fin");
+		}
+	}
+	
 	public static void testToViewCarrierThreadPoolSize() throws Exception {
 		final ThreadFactory virtualThreadFactory = Thread.ofVirtual().name("routine-", 0).factory();
 		try (var executor = Executors.newThreadPerTaskExecutor(virtualThreadFactory)) {
@@ -52,7 +72,8 @@ public class TestVirtualThreadApp {
 		System.out.println("number of cores in processor=" + numberOfCores());
 		//testSimpleVirtualThread();
 		//testViaExecutors();
-		testToViewCarrierThreadPoolSize();
+		//testToViewCarrierThreadPoolSize();
+		testViaExecutorsAndWaitingForAll();
 	}
 
 }
