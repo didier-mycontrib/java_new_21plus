@@ -5,6 +5,8 @@ import java.util.concurrent.Callable;
 
 public class MyRunnableUtil {
 	
+	public static ThreadLocal<Integer> compteurThreadLocal = new ThreadLocal<Integer>();
+	
 	public static Runnable prepareBasicRunnable() {
 		return ()->{
 			MyThreadUtil.sleep(Duration.ofSeconds(1));
@@ -38,6 +40,21 @@ public class MyRunnableUtil {
 			MyThreadUtil.sleep(Duration.ofSeconds(1));
 			MyThreadUtil.log("cumputing is ready");
 			return 5;
+		};
+	}
+	
+	public static void subCallWithoutParams() {
+		int ii= compteurThreadLocal.get();
+		MyThreadUtil.log("subCallWithoutParams ii="+ii);
+	}
+
+	public static Runnable withSubCalls(int i) {
+		return ()->{
+		MyThreadUtil.log("begin of withSubCalls i="+i);
+		compteurThreadLocal.set(i);
+		subCallWithoutParams();
+		MyThreadUtil.sleep(Duration.ofMillis(50));
+		MyThreadUtil.log("end of withSubCalls i="+i);
 		};
 	}
 	
