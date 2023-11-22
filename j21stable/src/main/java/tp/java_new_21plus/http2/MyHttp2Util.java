@@ -1,5 +1,7 @@
 package tp.java_new_21plus.http2;
 
+import java.net.InetSocketAddress;
+import java.net.ProxySelector;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -14,7 +16,11 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 public class MyHttp2Util {
 	public static MyHttp2Util INSTANCE = new MyHttp2Util();
 	
-	private HttpClient client = HttpClient.newHttpClient();
+	//private HttpClient client = HttpClient.newHttpClient();
+	private HttpClient client =   HttpClient.newBuilder()
+	    //.proxy(ProxySelector.of(new InetSocketAddress("100.78.112.201", 8001)))
+	    .build();
+	
 	private ObjectMapper jsonMapper = new ObjectMapper();
 	
 	

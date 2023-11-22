@@ -52,8 +52,8 @@ public class SimpleCallsViaVirtualThreadApp {
 		 boolean withDisplay=true;
 		// boolean withDisplay=false;
 		 
-        boolean withVirtualThread=false; //environ 1000 ms
-        //boolean withVirtualThread=true; //environ 700 ms  (à priori un gain de l'ordre de 25 à 30% , si pas d'erreur ????)
+        //boolean withVirtualThread=false; //environ 1000 ms
+        boolean withVirtualThread=true; //environ 700 ms  (à priori un gain de l'ordre de 25 à 30% , si pas d'erreur ????)
 		
 		int nbMs = fetchAllZippopotam(zipList,withVirtualThread,withDisplay);//withVirtualThread=true,doDisplay=false;
 		System.out.println("fetchAllZippopotam,withVirtualThread="+withVirtualThread+ ", temps d'execution (ms)=" + nbMs);

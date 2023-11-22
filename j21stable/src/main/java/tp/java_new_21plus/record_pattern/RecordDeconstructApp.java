@@ -34,8 +34,8 @@ public class RecordDeconstructApp {
 	
 	public static void print_destructuring(Object o) {
 		//record pattern = destructuration (like javascript) in Pattern matching for instance of
-		if(o instanceof Point (int x,int y)) {
-			System.out.println("Destructuring Point x="+x + " y="+y);
+		if(o instanceof Point (int a,int b)) {
+			System.out.println("Destructuring Point a="+a + " b="+b);
 		}
 		if(o instanceof Location (String name,GPS_Point(double latitude,double longitude))) {
 			System.out.println("Destructuring Location name="+name + " latitude="+latitude + " longitude="+longitude );
