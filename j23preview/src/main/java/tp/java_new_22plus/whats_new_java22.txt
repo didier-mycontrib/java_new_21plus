@@ -1,0 +1,9 @@
+- Les unnamed variables et patterns (avec _ ) : stabilisé
+– Les classes déclarées implicitement
+ (éventuel main() implicite/simplifié sans arguments ou sans imbrication dans une classe)
+– Modifications dans l'appel de l'instruction "super" (flexibilité dans l'ordre d'appel de super() dans constructeur)
+– Les Stream Gatherers (pour personnaliser des opérations intermédiaires pointues au sein des collection/stream() )
+– L'API Class-File (pour manipuler le byte-code , remplacera à terme ASM)
+– Le lancement de programmes multi source sans compilation (gadget !!!!)
+=================
+évolution des incubators et des previews : FFM,VectorApi,StructuredConcurrency and scopeValue

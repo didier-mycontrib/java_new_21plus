@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tp</groupId>
+  <artifactId>j23preview</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+	  <java.version>23</java.version>
+	  <maven.compiler.release>${java.version}</maven.compiler.release>
+	  <maven.compiler.target>${java.version}</maven.compiler.target>
+      <maven.compiler.source>${java.version}</maven.compiler.source>
+	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <junit.jupiter.version>5.9.3</junit.jupiter.version>
+  </properties>
+  
+  <dependencies>
+	  
+	  <dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+    	<artifactId>jackson-databind</artifactId>
+    	<version>2.15.2</version>
+	 </dependency>
+	 
+	 
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.30</version> <!-- lombok 1.18.28 incompatible avec java 21 -->
+	    <scope>provided</scope>
+	</dependency>
+	 
+	 <dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter</artifactId>
+	    <version>${junit.jupiter.version}</version>
+	    <scope>test</scope>
+	</dependency>
+	
+	<dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.20.0</version>
+     </dependency>
+	 
+  </dependencies>
+  
+ <build>
+	 <plugins>
+		 
+		 <plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-compiler-plugin</artifactId>
+    		<version>3.11.0</version>
+    		<configuration>
+        		 <release>${maven.compiler.release}</release> 
+        		 <source>23</source>
+        		 <target>23</target>
+        		 <compilerArgs>--enable-preview</compilerArgs>
+    		</configuration>
+		</plugin>
+		<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-surefire-plugin</artifactId>
+    		<version>3.1.2</version>
+    	</plugin>
+	 </plugins>
+	 
+ </build> 
+  
+</project>
