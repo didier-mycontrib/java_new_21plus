@@ -1,0 +1,24 @@
+* ABANDON officiel de  "java_template_string" (plus d'inconvénients que d'avantages)
+* ABANDON officiel du support java 32bits (seulement 64bits désormais)
+
+* plus en preview depuis java24 , stable java25:
+    "Stream Gathered" (operations pointues sur les streams)
+    "Class-Api" (api officielle pour manipuler le byte-code java , génération dynamique de .class
+=================
+java23, java24 (continuité , perf un peu améliorées )
+============
+java25 (septembre 2025) LTS avec :
+ * Ahead-of-Time Command-Line Ergonomics , Ahead-of-Time Method Profiling
+
+
+plus en preview depuis java25:
+==========================
+* Scoped Values(JEP 506) , ...
+
+encore en preview ou incubator en java 25:
+=========================================
+* JEP 508 : Vector api (dixième incubation, sur exemple simple, pas de changement entre preview java21 et preview java25)
+* JEP 505 – Structured Concurrency (cinquième preview)
+* JEP 507 – Primitive Types in Patterns, instanceof, and switch : troisième preview
+* JEP 470: PEM Encodings of Cryptographic Objects
+* JEP 502: Stable Values

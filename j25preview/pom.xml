@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tp</groupId>
+  <artifactId>j25preview</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+	  <java.version>25</java.version>
+	  <maven.compiler.release>${java.version}</maven.compiler.release>
+	  <maven.compiler.target>${java.version}</maven.compiler.target>
+      <maven.compiler.source>${java.version}</maven.compiler.source>
+	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <junit.jupiter.version>5.13.4</junit.jupiter.version>
+  </properties>
+  
+  <dependencies>
+	  
+	  <dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+    	<artifactId>jackson-databind</artifactId>
+    	<version>2.19.2</version>
+	 </dependency>
+	 
+	 
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.42</version> <!-- lombok 1.18.30 pour java 21 , 1.18.42 pour java 25 -->
+	    <scope>provided</scope>
+	</dependency>
+	 
+	 <dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter</artifactId>
+	    <version>${junit.jupiter.version}</version>
+	    <scope>test</scope>
+	</dependency>
+	
+	<dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.25.2</version>
+     </dependency>
+	 
+  </dependencies>
+  
+ <build>
+	 <plugins>
+		 
+		 <plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-compiler-plugin</artifactId>
+    		<version>3.14.0</version>
+    		<configuration>
+        		 <release>${maven.compiler.release}</release> 
+        		 <source>25</source>
+        		 <target>25</target>
+        		 <compilerArgs>
+                     <args>--enable-preview</args>
+                     <args>--add-modules=jdk.incubator.vector</args>
+                 </compilerArgs>
+
+    		</configuration>
+		</plugin>
+		<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-surefire-plugin</artifactId>
+    		<version>3.5.3</version>
+    	</plugin>
+	 </plugins>
+	 
+ </build> 
+  
+</project>
