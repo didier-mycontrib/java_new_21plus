@@ -20,7 +20,7 @@ public abstract class TownInfoFetcher {
 				             "14000" , "76100" , "87000" , "25000" , "54000");
 	}
 	
-    public TownWithWeather fetchTownNameAndPopulationFromZip(TownWithWeather townWithZip) {
+    public static TownWithWeather fetchTownNameAndPopulationFromZip(TownWithWeather townWithZip) {
     	TownWithWeather townWithNameAndPopulation = new TownWithWeather(townWithZip);
     	String wsURL="https://geo.api.gouv.fr/communes?codePostal=" + townWithZip.getZip();
     	List<GeoApiGouvFr.Commune> communes = MyHttp2Util.INSTANCE.fetchList(wsURL, GeoApiGouvFr.Commune.class);
@@ -31,7 +31,7 @@ public abstract class TownInfoFetcher {
     	return townWithNameAndPopulation;
 	}
     
-    public TownWithWeather fetchTownLatitudeAndLongitudeFromZip(TownWithWeather townWithZip) {
+    public static TownWithWeather fetchTownLatitudeAndLongitudeFromZip(TownWithWeather townWithZip) {
     	TownWithWeather townWithCoords = new TownWithWeather(townWithZip);
     	String wsURL="http://api.zippopotam.us/fr/" + townWithZip.getZip();
     	Zippopotam.Response zippopotamResponse = MyHttp2Util.INSTANCE.fetch(wsURL, Zippopotam.Response.class);
@@ -42,7 +42,7 @@ public abstract class TownInfoFetcher {
     	return townWithCoords;
 	}
     
-    public TownWithWeather fetchTownWeatherFromCoords(TownWithWeather townWithCoords) {
+    public static TownWithWeather fetchTownWeatherFromCoords(TownWithWeather townWithCoords) {
     	TownWithWeather townWithWeather = new TownWithWeather(townWithCoords);
     	String wsURL=OpenWeatherMap.buildCurrentWeatherURL(townWithCoords.getLatitude().toString(),
     			                                           townWithCoords.getLongitude().toString());
@@ -55,7 +55,7 @@ public abstract class TownInfoFetcher {
     	return townWithWeather;
     }
     
-    public TownWithWeather fetchTownElevationFromCoords(TownWithWeather townWithCoords) {
+    public static TownWithWeather fetchTownElevationFromCoords(TownWithWeather townWithCoords) {
     	TownWithWeather townWithElevation = new TownWithWeather(townWithCoords);
     	String wsURL=OpenElevation.buildOpenElevationURL(townWithCoords.getLatitude().toString(),
     			                                           townWithCoords.getLongitude().toString());
@@ -69,7 +69,7 @@ public abstract class TownInfoFetcher {
     	return townWithElevation;
     }
     
-    public TownWithWeather fakeFetchTownElevationFromCoords(TownWithWeather townWithCoords) {
+    public static TownWithWeather fakeFetchTownElevationFromCoords(TownWithWeather townWithCoords) {
     	TownWithWeather townWithElevation = new TownWithWeather(townWithCoords);
     	try {
 			Thread.currentThread().sleep(100);//100ms

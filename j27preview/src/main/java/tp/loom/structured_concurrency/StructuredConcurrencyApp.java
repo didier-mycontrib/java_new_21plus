@@ -8,7 +8,7 @@ import tp.loom.fetcher.TownInfoFetcher;
 import tp.loom.fetcher.TownInfoFetcherBasic;
 
 /*
- StructuredTaskScope (pour l'instant en mode "preview" en java 21)
+ StructuredTaskScope (pour l'instant toujours en mode "preview" en java 27)
  correpond à une sorte de Tache/Objectif pouvant généralement se décomposer 
  en sous-tâche/sous-objectif .
  Plusieurs niveaux sont possibles (tachePrincipale , sousTaches, sousSousTaches)
@@ -22,8 +22,8 @@ public class StructuredConcurrencyApp {
 	   //in run configuration : VM arguments
 	   //--enable-preview
 	   System.out.println("StructuredConcurrencyApp");
-	   //fetchTownsWithFetcher(new TownInfoFetcherBasic());//environ 7800ms avec .stream() et 2000ms avec .parallelStream()
-	   //fetchTownsWithFetcher(new TownInfoFetcherWithStructuredConcurrency());//1456ms with structuredConcurrency and virtualThreads
+	   //fetchTownsWithFetcher(new TownInfoFetcherBasic());//environ 4957 avec .stream() et 1664, 1153 , 1158 ms avec .parallelStream()
+	   fetchTownsWithFetcher(new TownInfoFetcherWithStructuredConcurrency());//1030, 1101 , 1002 , 1150 , ... ms with structuredConcurrency and virtualThreads
 	   
 	   testQuickerSubTask();
 	   testAllFinishedParallelSubTask();

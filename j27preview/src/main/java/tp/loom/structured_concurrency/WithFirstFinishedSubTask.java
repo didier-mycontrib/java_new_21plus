@@ -10,7 +10,8 @@ public class WithFirstFinishedSubTask {
 	
 	public static WithFirstFinishedSubTask INSTANCE = new WithFirstFinishedSubTask();
 	/*
-	 with specific joiner to capture the first result and shuts down the task scope
+	 with specific joiner StructuredTaskScope.Joiner.<Double>anySuccessfulOrThrow()
+	 to capture the first result and shuts down the task scope
 	 to interrupt unfinished threads and wakeup the owner.
 	 */
 	

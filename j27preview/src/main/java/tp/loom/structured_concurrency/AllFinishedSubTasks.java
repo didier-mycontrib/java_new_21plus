@@ -9,7 +9,6 @@ import tp.loom.fetcher.FakeLongTaskService;
 
 
 
-
 public class AllFinishedSubTasks {
 	
 	public static AllFinishedSubTasks INSTANCE = new AllFinishedSubTasks();

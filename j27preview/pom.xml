@@ -56,10 +56,10 @@
                 <version>3.16.0</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>27</source>
+                    <target>27</target>
                     <compilerArgs>
-                        <args>--enable-preview</args>
+                        <arg>--enable-preview</arg>
                         <!-- <args>add-modules=jdk.incubator.vector</args> -->
                     </compilerArgs>
                 </configuration>

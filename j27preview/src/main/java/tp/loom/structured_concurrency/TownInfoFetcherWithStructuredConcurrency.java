@@ -1,13 +1,9 @@
 package tp.loom.structured_concurrency;
 
-import java.time.Instant;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.StructuredTaskScope;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
 
 import tp.loom.data.TownWithWeather;
 import tp.loom.fetcher.TownInfoFetcher;
@@ -51,26 +47,18 @@ public class TownInfoFetcherWithStructuredConcurrency extends TownInfoFetcher{
 	              .toList();
     }
     
-	/*
-	 ShutdownOnFailure captures the first exception and shuts down the task scope. 
-	 This class is intended for cases where the results of all subtasks are required 
-	 (“invoke all”); 
-	 if any subtask fails then the results of other unfinished subtasks are no longer needed. 
-	 If defines methods to throw an exception if any of the subtasks fail
-	 */
-	
+
     public TownWithWeather fetchTownWithNamePopulationAndCoordsFromZip(String zip) {
 		TownWithWeather initialTown = new TownWithWeather(zip);
 		TownWithWeather town = new TownWithWeather(initialTown);
-    	try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
-    		
+		try (var scope = StructuredTaskScope.open(cf -> cf.withTimeout(Duration.ofMillis(3000)))) {
+
     		StructuredTaskScope.Subtask<TownWithWeather> subTaskTownWithNameAndPopulation = 
-		    		scope.fork(() -> fetchTownNameAndPopulationFromZip(initialTown));
+		    		scope.fork(() -> TownInfoFetcher.fetchTownNameAndPopulationFromZip(initialTown));
     		StructuredTaskScope.Subtask<TownWithWeather> subTaskTownWithCoord = 
-		    		scope.fork(() -> fetchTownLatitudeAndLongitudeFromZip(initialTown));
-		    //scope.join();//waiting for all subtask terminate
-		    scope.joinUntil(Instant.now().plusSeconds(3)); //with TimeoutException if all is not finish 3s later now
-		    scope.throwIfFailed(e -> new RuntimeException("cannot fetch Name,Population,Latitude,Longitude from zip"));
+		    		scope.fork(() -> TownInfoFetcher.fetchTownLatitudeAndLongitudeFromZip(initialTown));
+		    scope.join();
+
 		    TownWithWeather townWithNameAndPopulation = subTaskTownWithNameAndPopulation.get();
 		    town.setName(townWithNameAndPopulation.getName());
 		    town.setPopulation(townWithNameAndPopulation.getPopulation());
@@ -79,15 +67,15 @@ public class TownInfoFetcherWithStructuredConcurrency extends TownInfoFetcher{
 		    town.setLongitude(townWithCoords.getLongitude());
 		}catch(InterruptedException ex){
 			ex.printStackTrace();
-    	}catch(TimeoutException toEx){
-    		toEx.printStackTrace();
+    	}catch(ExecutionException eEx){
+    		eEx.printStackTrace();
     	}
     	return town;
     }
     
     public TownWithWeather fetchTownWithWeatherAndElevationFromTownWithCoords(TownWithWeather townWithCoords) {
     	TownWithWeather town = new TownWithWeather(townWithCoords);
-    	try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+    	try (var scope = StructuredTaskScope.open()) {
     		StructuredTaskScope.Subtask<TownWithWeather> subtaskTownWithWeather = 
 		    		scope.fork(() -> fetchTownWeatherFromCoords(townWithCoords));
     		StructuredTaskScope.Subtask<TownWithWeather> subtaskTownWithElevation = 
@@ -101,6 +89,8 @@ public class TownInfoFetcherWithStructuredConcurrency extends TownInfoFetcher{
 		    town.setElevation(TownWithElevation.getElevation());
 		}catch(InterruptedException ex){
 			ex.printStackTrace();
+		}catch(ExecutionException eEx){
+			eEx.printStackTrace();
 		}
     	return town;
     }
